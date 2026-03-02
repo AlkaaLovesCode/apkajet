@@ -28,10 +28,7 @@ class="w-full bg-yellow-400 hover:bg-yellow-500 text-white py-2 rounded-lg shado
 Masuk
 </button>
 
-<p class="text-xs text-gray-500 mt-3 text-center">
-Admin: admin / admin123
-</p>
-</div>
+
 
 <!-- SISWA PANEL -->
 <div id="studentPanel" class="hidden">
@@ -82,9 +79,7 @@ class="w-full mt-6 bg-amber-400 hover:bg-amber-500 text-white py-2 rounded-lg">
 Kirim
 </button>
 
-<div id="result"
-class="mt-6 p-4 bg-yellow-100 rounded-lg border border-yellow-300 text-sm hidden">
-</div>
+<div id="result" class="mt-6 p-4 rounded-lg border text-sm hidden"></div>
 
 <canvas id="studentChart" class="mt-6"></canvas>
 
@@ -123,6 +118,8 @@ let adminChartInstance = null;
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "admin123";
 
+/* ================= LOGIN ================= */
+
 function login(){
 const username = document.getElementById("username").value;
 const password = document.getElementById("password").value;
@@ -151,14 +148,21 @@ localStorage.setItem("users",JSON.stringify(users));
 }
 
 currentUser=username;
+
 document.getElementById("loginSection").classList.add("hidden");
 document.getElementById("studentPanel").classList.remove("hidden");
+
+requestNotificationPermission();
+setupDailyReminder();
+
 updateStudentChart();
 }
 
 function logout(){
 location.reload();
 }
+
+/* ================= HITUNG BURNOUT ================= */
 
 function hitungBurnout(){
 const q1=document.querySelector('input[name="q1"]:checked');
@@ -181,32 +185,72 @@ let data=JSON.parse(localStorage.getItem("burnoutData"))||{};
 data[currentUser]={skor:total,kategori:kategori};
 localStorage.setItem("burnoutData",JSON.stringify(data));
 
-let kesimpulan="",motivasi="";
+let kesimpulan="";
+
+/* === TEKS KATEGORI === */
 
 if(kategori==="Rendah"){
-kesimpulan="Tingkat burnout Anda rendah.";
-motivasi="Pertahankan keseimbangan belajar dan istirahat ✨";
+kesimpulan = `
+🌱 <strong>Tingkat Burnout: Rendah</strong><br><br>
+<strong>Kesimpulan:</strong><br>
+Tingkat burnout kamu rendah — ini bagus! Kamu mungkin merasa sedikit letih atau stres, tapi masih bisa mengelolanya dengan jeda singkat atau self-care ringan. Ini tanda bahwa kamu masih punya kontrol terhadap keseimbangan hidupmu.
+<br><br>
+<strong>Saran untuk Mengatasi / Mencegah:</strong><br>
+1. <strong>Tetapkan batas waktu kerja dan istirahat</strong> — jangan biarkan aktivitas memblender sehingga menguras energi.<br><br>
+2. <strong>Rutin lakukan self-care sederhana</strong> — tidur cukup, olahraga ringan, atau ngobrol bareng teman.<br><br>
+3. <strong>Jaga keseimbangan hidup</strong> — lakukan hal yang bermakna selain tugas rutin, seperti hobi atau quality time.
+<br><br>
+<strong>Kata Motivasi:</strong><br>
+🌱 “Energi kecil hari ini berarti kamu punya ruang untuk tumbuh — manfaatkan dengan bijak, dan bahagiamu akan makin bertambah.”
+`;
+motivasi = "";
 }
+
 if(kategori==="Sedang"){
-kesimpulan="Tingkat burnout Anda sedang.";
-motivasi="Cobalah atur waktu dan berbagi cerita 🌤️";
+kesimpulan = `
+🌤️ <strong>Tingkat Burnout: Sedang</strong><br><br>
+<strong>Kesimpulan:</strong><br>
+Tingkat burnout kamu termasuk sedang — artinya ada tanda-tanda kelelahan dan sedikit kehilangan semangat, tapi kamu masih punya energi tersisa untuk melakukan perbaikan diri. Ini fase bagus untuk mulai melakukan perubahan agar burnout tidak makin parah.
+<br><br>
+<strong>Saran untuk Mengatasi:</strong><br>
+1. <strong>Ambil jeda singkat secara teratur</strong> — stop beberapa menit setiap jam untuk bernapas dalam atau jalan sebentar.<br><br>
+2. <strong>Istirahat cukup di malam hari</strong> — tidur berkualitas membantu pemulihan energi.<br><br>
+3. <strong>Lakukan aktivitas kecil yang bikin bahagia</strong> — hobi ringan seperti menggambar, mendengarkan musik, journaling.
+<br><br>
+<strong>Kata Motivasi:</strong><br>
+🌼 “Langkah kecil hari ini adalah bukti bahwa kamu masih peduli pada kesehatanmu. Jangan berhenti — kamu sedang dalam proses pulih.”
+`;
+motivasi = "";
 }
+
 if(kategori==="Tinggi"){
-kesimpulan="Tingkat burnout Anda tinggi.";
-motivasi="Prioritaskan kesehatan mental Anda 💛";
+kesimpulan = `
+🔥 <strong>Tingkat Burnout: Tinggi</strong><br><br>
+<strong>Kesimpulan:</strong><br>
+Tingkat burnout kamu hari ini sangat tinggi — ini berarti kamu merasa sangat lelah secara fisik dan emosional, kehilangan energi, dan mungkin sulit fokus atau merasa tak berdaya. Burnout serius bukan hanya sekadar capek biasa; itu sinyal bahwa tubuh dan pikiranmu butuh istirahat dan perhatian yang lebih intensif 💡.
+<br><br>
+<strong>Saran untuk Mengatasi:</strong><br>
+1. <strong>Istirahat total</strong> — beri jeda dari tugas utama dan lakukan kegiatan yang bikin kamu santai seperti berjalan santai, tidur cukup, dengarkan musik, atau membaca buku favorit.<br><br>
+2. <strong>Atur batasan</strong> — tentukan waktu khusus untuk diri sendiri setiap hari dari pekerjaan atau hal yang bikin stres.<br><br>
+3. <strong>Minta dukungan sosial</strong> — ngobrol sama teman atau keluarga tentang perasaanmu, atau kalau perlu pertimbangkan bantuan profesional seperti konselor/psikolog.
+`;
+motivasi = "";
 }
 
-document.getElementById("result").innerHTML=
-`<p><strong>Skor:</strong> ${total}</p>
-<p><strong>Kategori:</strong> ${kategori}</p>
-<hr class="my-2">
-<p><strong>Kesimpulan:</strong> ${kesimpulan}</p>
-<p class="text-yellow-700 font-medium mt-2">${motivasi}</p>`;
+const resultBox=document.getElementById("result");
+resultBox.innerHTML=`<p><strong>Skor:</strong> ${total}</p><hr class="my-2">${kesimpulan}`;
+resultBox.className="mt-6 p-4 rounded-lg border text-sm";
 
-document.getElementById("result").classList.remove("hidden");
+if(kategori==="Rendah") resultBox.classList.add("bg-green-100","border-green-300","text-green-800");
+if(kategori==="Sedang") resultBox.classList.add("bg-yellow-100","border-yellow-300","text-yellow-800");
+if(kategori==="Tinggi") resultBox.classList.add("bg-red-100","border-red-300","text-red-800");
+
+resultBox.classList.remove("hidden");
 
 updateStudentChart();
 }
+
+/* ================= CHART ================= */
 
 function updateStudentChart(){
 let data=JSON.parse(localStorage.getItem("burnoutData"))||{};
@@ -228,11 +272,13 @@ data:{
 labels:["Rendah","Sedang","Tinggi"],
 datasets:[{
 data:[rendah,sedang,tinggi],
-backgroundColor:["#fde68a","#fbbf24","#f59e0b"]
+backgroundColor:["#86efac","#fde68a","#fca5a5"]
 }]
 }
 });
 }
+
+/* ================= ADMIN ================= */
 
 function loadAdminData(){
 let data=JSON.parse(localStorage.getItem("burnoutData"))||{};
@@ -259,10 +305,46 @@ data:{
 labels:["Rendah","Sedang","Tinggi"],
 datasets:[{
 data:[rendah,sedang,tinggi],
-backgroundColor:["#fde68a","#fbbf24","#f59e0b"]
+backgroundColor:["#86efac","#fde68a","#fca5a5"]
 }]
 }
 });
+}
+
+/* ================= NOTIFIKASI 7 HARI ================= */
+
+function requestNotificationPermission(){
+if("Notification" in window){
+if(Notification.permission!=="granted"){
+Notification.requestPermission();
+}
+}
+}
+
+function sendDailyNotification(){
+if(Notification.permission==="granted"){
+new Notification("Pengingat Burnout Check 💛",{
+body:"Jangan lupa isi kuisioner burnout hari ini ya ✨"
+});
+}
+}
+
+function setupDailyReminder(){
+let reminderData=JSON.parse(localStorage.getItem("reminderData"))||{
+daysCompleted:0,
+lastNotified:null
+};
+
+const today=new Date().toDateString();
+
+if(reminderData.daysCompleted>=7) return;
+
+if(reminderData.lastNotified!==today){
+sendDailyNotification();
+reminderData.lastNotified=today;
+reminderData.daysCompleted+=1;
+localStorage.setItem("reminderData",JSON.stringify(reminderData));
+}
 }
 </script>
 
