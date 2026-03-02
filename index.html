@@ -193,15 +193,45 @@ function tampilkanStatistik() {
   const resultDiv = document.getElementById("result");
 
   if (data[currentUser]) {
+
+    const skor = data[currentUser].skor;
+    const kategori = data[currentUser].kategori;
+
+    let kesimpulan = "";
+    let motivasi = "";
+
+    if (kategori === "Rendah") {
+      kesimpulan = "Tingkat burnout Anda tergolong rendah. Anda masih mampu mengelola tekanan akademik dengan cukup baik.";
+      motivasi = "Pertahankan ritme belajar Anda, tetap jaga keseimbangan antara belajar dan istirahat agar kondisi ini tetap stabil ✨";
+    }
+
+    else if (kategori === "Sedang") {
+      kesimpulan = "Tingkat burnout Anda berada pada kategori sedang. Ada tanda-tanda kelelahan yang perlu mulai diperhatikan.";
+      motivasi = "Cobalah atur waktu istirahat dengan lebih baik dan jangan ragu untuk berbagi cerita dengan orang terdekat. Anda tidak harus menghadapi semuanya sendirian 🌤️";
+    }
+
+    else if (kategori === "Tinggi") {
+      kesimpulan = "Tingkat burnout Anda tergolong tinggi. Anda mungkin sedang mengalami tekanan akademik yang cukup berat.";
+      motivasi = "Luangkan waktu untuk beristirahat dan prioritaskan kesehatan mental Anda. Berbicara dengan guru BK, orang tua, atau teman terpercaya bisa sangat membantu. Kondisi ini bisa diperbaiki, dan Anda tidak sendirian 💛";
+    }
+
     resultDiv.innerHTML = `
       <p><strong>Username:</strong> ${currentUser}</p>
-      <p><strong>Skor:</strong> ${data[currentUser].skor}</p>
-      <p><strong>Kategori:</strong> ${data[currentUser].kategori}</p>
+      <p><strong>Skor:</strong> ${skor}</p>
+      <p><strong>Kategori:</strong> ${kategori}</p>
+
+      <hr class="my-3 border-yellow-300">
+
+      <p class="font-medium">Kesimpulan:</p>
+      <p class="mb-3">${kesimpulan}</p>
+
+      <p class="font-medium">Motivasi:</p>
+      <p class="text-yellow-700 font-medium">${motivasi}</p>
     `;
+
     resultDiv.classList.remove("hidden");
   }
 }
-
 function updateChart() {
   let data = JSON.parse(localStorage.getItem("burnoutData")) || {};
 
@@ -235,5 +265,4 @@ function updateChart() {
 </script>
 
 </body>
-
 </html>
