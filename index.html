@@ -1,266 +1,268 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Statistik Burnout Siswa</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Statistik Burnout Siswa</title>
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="bg-gradient-to-br from-yellow-100 via-amber-50 to-yellow-200 min-h-screen flex items-center justify-center p-4">
 
-  <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 border border-yellow-200">
+<div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl p-8 border border-yellow-200">
 
-    <!-- LOGIN -->
-    <div id="loginSection">
-      <h2 class="text-2xl font-bold text-center text-yellow-600 mb-6">
-        Login / Register
-      </h2>
+<!-- LOGIN -->
+<div id="loginSection">
+<h2 class="text-2xl font-bold text-center text-yellow-600 mb-6">Login</h2>
 
-      <input type="text" id="username" placeholder="Username"
-        class="w-full px-4 py-2 border border-yellow-300 rounded-lg mb-3 bg-amber-50">
+<input type="text" id="username" placeholder="Username"
+class="w-full px-4 py-2 border border-yellow-300 rounded-lg mb-3 bg-amber-50">
 
-      <input type="password" id="password" placeholder="Password"
-        class="w-full px-4 py-2 border border-yellow-300 rounded-lg mb-4 bg-amber-50">
+<input type="password" id="password" placeholder="Password"
+class="w-full px-4 py-2 border border-yellow-300 rounded-lg mb-4 bg-amber-50">
 
-      <button onclick="login()"
-        class="w-full bg-yellow-400 hover:bg-yellow-500 text-white py-2 rounded-lg shadow-md">
-        Masuk
-      </button>
+<button onclick="login()"
+class="w-full bg-yellow-400 hover:bg-yellow-500 text-white py-2 rounded-lg shadow-md">
+Masuk
+</button>
 
-      <p class="text-xs text-gray-500 mt-3 text-center">
-        Jika akun belum ada, akan otomatis dibuat.
-      </p>
-    </div>
+<p class="text-xs text-gray-500 mt-3 text-center">
+Admin: admin / admin123
+</p>
+</div>
 
-    <!-- KUESIONER -->
-    <div id="quizSection" class="hidden">
-      <h2 class="text-2xl font-bold text-center text-yellow-600 mb-6">
-        Kuesioner Burnout (Skala Likert)
-      </h2>
+<!-- SISWA PANEL -->
+<div id="studentPanel" class="hidden">
 
-      <div class="space-y-6 text-sm">
+<h2 class="text-xl font-bold text-yellow-600 mb-4 text-center">
+Kuesioner Burnout
+</h2>
 
-        <!-- Pertanyaan 1 -->
-        <div>
-          <p class="font-medium mb-2">
-            1. Saya merasa lelah dengan tugas sekolah
-          </p>
-          <div class="flex justify-between text-xs text-gray-600 mb-1">
-            <span>STS</span><span>TS</span><span>N</span><span>S</span><span>SS</span>
-          </div>
-          <div class="flex justify-between">
-            <input type="radio" name="q1" value="1">
-            <input type="radio" name="q1" value="2">
-            <input type="radio" name="q1" value="3">
-            <input type="radio" name="q1" value="4">
-            <input type="radio" name="q1" value="5">
-          </div>
-        </div>
+<div class="space-y-4 text-sm">
 
-        <!-- Pertanyaan 2 -->
-        <div>
-          <p class="font-medium mb-2">
-            2. Saya kehilangan motivasi belajar
-          </p>
-          <div class="flex justify-between text-xs text-gray-600 mb-1">
-            <span>STS</span><span>TS</span><span>N</span><span>S</span><span>SS</span>
-          </div>
-          <div class="flex justify-between">
-            <input type="radio" name="q2" value="1">
-            <input type="radio" name="q2" value="2">
-            <input type="radio" name="q2" value="3">
-            <input type="radio" name="q2" value="4">
-            <input type="radio" name="q2" value="5">
-          </div>
-        </div>
+<div>
+<p>1. Saya merasa lelah dengan tugas sekolah</p>
+<div class="flex justify-between">
+<input type="radio" name="q1" value="1">
+<input type="radio" name="q1" value="2">
+<input type="radio" name="q1" value="3">
+<input type="radio" name="q1" value="4">
+<input type="radio" name="q1" value="5">
+</div>
+</div>
 
-        <!-- Pertanyaan 3 -->
-        <div>
-          <p class="font-medium mb-2">
-            3. Saya merasa stres karena tugas menumpuk
-          </p>
-          <div class="flex justify-between text-xs text-gray-600 mb-1">
-            <span>STS</span><span>TS</span><span>N</span><span>S</span><span>SS</span>
-          </div>
-          <div class="flex justify-between">
-            <input type="radio" name="q3" value="1">
-            <input type="radio" name="q3" value="2">
-            <input type="radio" name="q3" value="3">
-            <input type="radio" name="q3" value="4">
-            <input type="radio" name="q3" value="5">
-          </div>
-        </div>
+<div>
+<p>2. Saya kehilangan motivasi belajar</p>
+<div class="flex justify-between">
+<input type="radio" name="q2" value="1">
+<input type="radio" name="q2" value="2">
+<input type="radio" name="q2" value="3">
+<input type="radio" name="q2" value="4">
+<input type="radio" name="q2" value="5">
+</div>
+</div>
 
-      </div>
+<div>
+<p>3. Saya merasa stres karena tugas menumpuk</p>
+<div class="flex justify-between">
+<input type="radio" name="q3" value="1">
+<input type="radio" name="q3" value="2">
+<input type="radio" name="q3" value="3">
+<input type="radio" name="q3" value="4">
+<input type="radio" name="q3" value="5">
+</div>
+</div>
 
-      <button onclick="hitungBurnout()"
-        class="w-full mt-6 bg-amber-400 hover:bg-amber-500 text-white py-2 rounded-lg shadow-md">
-        Kirim Jawaban
-      </button>
+</div>
 
-      <div id="result"
-        class="hidden mt-6 p-4 bg-yellow-100 rounded-lg border border-yellow-300 text-sm">
-      </div>
+<button onclick="hitungBurnout()"
+class="w-full mt-6 bg-amber-400 hover:bg-amber-500 text-white py-2 rounded-lg">
+Kirim
+</button>
 
-      <div class="mt-6">
-        <canvas id="burnoutChart"></canvas>
-      </div>
+<div id="result"
+class="mt-6 p-4 bg-yellow-100 rounded-lg border border-yellow-300 text-sm hidden">
+</div>
 
-      <button onclick="logout()"
-        class="w-full mt-4 bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 rounded-lg">
-        Logout
-      </button>
-    </div>
+<canvas id="studentChart" class="mt-6"></canvas>
 
-  </div>
+<button onclick="logout()"
+class="w-full mt-6 bg-gray-300 py-2 rounded-lg">
+Logout
+</button>
+
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel" class="hidden">
+
+<h2 class="text-xl font-bold text-yellow-600 mb-4 text-center">
+Admin Dashboard
+</h2>
+
+<div id="userList" class="text-sm mb-6"></div>
+
+<canvas id="adminChart"></canvas>
+
+<button onclick="logout()"
+class="w-full mt-6 bg-gray-300 py-2 rounded-lg">
+Logout
+</button>
+
+</div>
+
+</div>
 
 <script>
 let currentUser = null;
-let chartInstance = null;
+let studentChartInstance = null;
+let adminChartInstance = null;
 
-function login() {
-  const usernameInput = document.getElementById("username").value;
-  const passwordInput = document.getElementById("password").value;
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "admin123";
 
-  if (!usernameInput || !passwordInput) {
-    alert("Username dan password wajib diisi!");
-    return;
-  }
+function login(){
+const username = document.getElementById("username").value;
+const password = document.getElementById("password").value;
 
-  let users = JSON.parse(localStorage.getItem("users")) || {};
-
-  if (users[usernameInput]) {
-    if (users[usernameInput] !== passwordInput) {
-      alert("Password salah!");
-      return;
-    }
-  } else {
-    users[usernameInput] = passwordInput;
-    localStorage.setItem("users", JSON.stringify(users));
-  }
-
-  currentUser = usernameInput;
-
-  document.getElementById("loginSection").classList.add("hidden");
-  document.getElementById("quizSection").classList.remove("hidden");
-
-  tampilkanStatistik();
-  updateChart();
+if(!username || !password){
+alert("Isi semua field!");
+return;
 }
 
-function logout() {
-  currentUser = null;
-  document.getElementById("quizSection").classList.add("hidden");
-  document.getElementById("loginSection").classList.remove("hidden");
+if(username===ADMIN_USER && password===ADMIN_PASS){
+document.getElementById("loginSection").classList.add("hidden");
+document.getElementById("adminPanel").classList.remove("hidden");
+loadAdminData();
+return;
 }
 
-function hitungBurnout() {
-  const q1 = document.querySelector('input[name="q1"]:checked');
-  const q2 = document.querySelector('input[name="q2"]:checked');
-  const q3 = document.querySelector('input[name="q3"]:checked');
-
-  if (!q1 || !q2 || !q3) {
-    alert("Semua pertanyaan harus dijawab!");
-    return;
-  }
-
-  const total =
-    parseInt(q1.value) +
-    parseInt(q2.value) +
-    parseInt(q3.value);
-
-  let kategori = "";
-  if (total <= 7) kategori = "Rendah";
-  else if (total <= 11) kategori = "Sedang";
-  else kategori = "Tinggi";
-
-  let data = JSON.parse(localStorage.getItem("burnoutData")) || {};
-  data[currentUser] = { skor: total, kategori: kategori };
-  localStorage.setItem("burnoutData", JSON.stringify(data));
-
-  tampilkanStatistik();
-  updateChart();
+let users = JSON.parse(localStorage.getItem("users"))||{};
+if(users[username]){
+if(users[username]!==password){
+alert("Password salah!");
+return;
+}
+}else{
+users[username]=password;
+localStorage.setItem("users",JSON.stringify(users));
 }
 
-function tampilkanStatistik() {
-  let data = JSON.parse(localStorage.getItem("burnoutData")) || {};
-  const resultDiv = document.getElementById("result");
-
-  if (data[currentUser]) {
-
-    const skor = data[currentUser].skor;
-    const kategori = data[currentUser].kategori;
-
-    let kesimpulan = "";
-    let motivasi = "";
-
-    if (kategori === "Rendah") {
-      kesimpulan = "Tingkat burnout Anda tergolong rendah. Anda masih mampu mengelola tekanan akademik dengan cukup baik.";
-      motivasi = "Pertahankan ritme belajar Anda, tetap jaga keseimbangan antara belajar dan istirahat agar kondisi ini tetap stabil ✨";
-    }
-
-    else if (kategori === "Sedang") {
-      kesimpulan = "Tingkat burnout Anda berada pada kategori sedang. Ada tanda-tanda kelelahan yang perlu mulai diperhatikan.";
-      motivasi = "Cobalah atur waktu istirahat dengan lebih baik dan jangan ragu untuk berbagi cerita dengan orang terdekat. Anda tidak harus menghadapi semuanya sendirian 🌤️";
-    }
-
-    else if (kategori === "Tinggi") {
-      kesimpulan = "Tingkat burnout Anda tergolong tinggi. Anda mungkin sedang mengalami tekanan akademik yang cukup berat.";
-      motivasi = "Luangkan waktu untuk beristirahat dan prioritaskan kesehatan mental Anda. Berbicara dengan guru BK, orang tua, atau teman terpercaya bisa sangat membantu. Kondisi ini bisa diperbaiki, dan Anda tidak sendirian 💛";
-    }
-
-    resultDiv.innerHTML = `
-      <p><strong>Username:</strong> ${currentUser}</p>
-      <p><strong>Skor:</strong> ${skor}</p>
-      <p><strong>Kategori:</strong> ${kategori}</p>
-
-      <hr class="my-3 border-yellow-300">
-
-      <p class="font-medium">Kesimpulan:</p>
-      <p class="mb-3">${kesimpulan}</p>
-
-      <p class="font-medium">Motivasi:</p>
-      <p class="text-yellow-700 font-medium">${motivasi}</p>
-    `;
-
-    resultDiv.classList.remove("hidden");
-  }
+currentUser=username;
+document.getElementById("loginSection").classList.add("hidden");
+document.getElementById("studentPanel").classList.remove("hidden");
+updateStudentChart();
 }
-function updateChart() {
-  let data = JSON.parse(localStorage.getItem("burnoutData")) || {};
 
-  let rendah = 0, sedang = 0, tinggi = 0;
+function logout(){
+location.reload();
+}
 
-  Object.values(data).forEach(item => {
-    if (item.kategori === "Rendah") rendah++;
-    else if (item.kategori === "Sedang") sedang++;
-    else if (item.kategori === "Tinggi") tinggi++;
-  });
+function hitungBurnout(){
+const q1=document.querySelector('input[name="q1"]:checked');
+const q2=document.querySelector('input[name="q2"]:checked');
+const q3=document.querySelector('input[name="q3"]:checked');
 
-  const ctx = document.getElementById("burnoutChart");
+if(!q1||!q2||!q3){
+alert("Jawab semua pertanyaan!");
+return;
+}
 
-  if (chartInstance) chartInstance.destroy();
+const total=parseInt(q1.value)+parseInt(q2.value)+parseInt(q3.value);
 
-  chartInstance = new Chart(ctx, {
-    type: "pie",
-    data: {
-      labels: ["Rendah", "Sedang", "Tinggi"],
-      datasets: [{
-        data: [rendah, sedang, tinggi],
-        backgroundColor: [
-          "#fde68a",
-          "#fbbf24",
-          "#f59e0b"
-        ]
-      }]
-    }
-  });
+let kategori="";
+if(total<=7) kategori="Rendah";
+else if(total<=11) kategori="Sedang";
+else kategori="Tinggi";
+
+let data=JSON.parse(localStorage.getItem("burnoutData"))||{};
+data[currentUser]={skor:total,kategori:kategori};
+localStorage.setItem("burnoutData",JSON.stringify(data));
+
+let kesimpulan="",motivasi="";
+
+if(kategori==="Rendah"){
+kesimpulan="Tingkat burnout Anda rendah.";
+motivasi="Pertahankan keseimbangan belajar dan istirahat ✨";
+}
+if(kategori==="Sedang"){
+kesimpulan="Tingkat burnout Anda sedang.";
+motivasi="Cobalah atur waktu dan berbagi cerita 🌤️";
+}
+if(kategori==="Tinggi"){
+kesimpulan="Tingkat burnout Anda tinggi.";
+motivasi="Prioritaskan kesehatan mental Anda 💛";
+}
+
+document.getElementById("result").innerHTML=
+`<p><strong>Skor:</strong> ${total}</p>
+<p><strong>Kategori:</strong> ${kategori}</p>
+<hr class="my-2">
+<p><strong>Kesimpulan:</strong> ${kesimpulan}</p>
+<p class="text-yellow-700 font-medium mt-2">${motivasi}</p>`;
+
+document.getElementById("result").classList.remove("hidden");
+
+updateStudentChart();
+}
+
+function updateStudentChart(){
+let data=JSON.parse(localStorage.getItem("burnoutData"))||{};
+let rendah=0,sedang=0,tinggi=0;
+
+for(let user in data){
+if(data[user].kategori==="Rendah") rendah++;
+if(data[user].kategori==="Sedang") sedang++;
+if(data[user].kategori==="Tinggi") tinggi++;
+}
+
+const ctx=document.getElementById("studentChart");
+
+if(studentChartInstance) studentChartInstance.destroy();
+
+studentChartInstance=new Chart(ctx,{
+type:"pie",
+data:{
+labels:["Rendah","Sedang","Tinggi"],
+datasets:[{
+data:[rendah,sedang,tinggi],
+backgroundColor:["#fde68a","#fbbf24","#f59e0b"]
+}]
+}
+});
+}
+
+function loadAdminData(){
+let data=JSON.parse(localStorage.getItem("burnoutData"))||{};
+let html="<h3 class='font-semibold mb-2'>Daftar Siswa:</h3>";
+
+let rendah=0,sedang=0,tinggi=0;
+
+for(let user in data){
+html+=`<p>${user} - Skor: ${data[user].skor} - ${data[user].kategori}</p>`;
+if(data[user].kategori==="Rendah") rendah++;
+if(data[user].kategori==="Sedang") sedang++;
+if(data[user].kategori==="Tinggi") tinggi++;
+}
+
+document.getElementById("userList").innerHTML=html;
+
+const ctx=document.getElementById("adminChart");
+
+if(adminChartInstance) adminChartInstance.destroy();
+
+adminChartInstance=new Chart(ctx,{
+type:"pie",
+data:{
+labels:["Rendah","Sedang","Tinggi"],
+datasets:[{
+data:[rendah,sedang,tinggi],
+backgroundColor:["#fde68a","#fbbf24","#f59e0b"]
+}]
+}
+});
 }
 </script>
 
